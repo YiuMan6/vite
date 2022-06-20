@@ -4,6 +4,9 @@ import legacy from "@vitejs/plugin-legacy";
 import { configCompressPlugin } from "./compress";
 import { configImageminPlugin } from "./imagemin";
 import { configSvgIconsPlugin } from "./svgSprite";
+import { configMockPlugin } from './mock';
+//npm i vite-plugin-svgr to import SVG as react compnents
+
 
 export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
   const {
@@ -11,6 +14,7 @@ export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
     VITE_LEGACY,
     VITE_BUILD_COMPRESS,
     VITE_BUILD_COMPRESS_DELETE_ORIGIN_FILE,
+    VITE_USE_MOCK
   } = viteEnv;
 
   const vitePlugins: PluginOption | PluginOption[] = [
@@ -19,6 +23,7 @@ export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
   ];
 
   VITE_LEGACY && isBuild && vitePlugins.push(legacy());
+  VITE_USE_MOCK && vitePlugins.push(configMockPlugin(isBuild));
   vitePlugins.push(configSvgIconsPlugin(isBuild));
 
   if (isBuild) {

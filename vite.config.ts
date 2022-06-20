@@ -9,9 +9,8 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
   const env = loadEnv(mode, root);
   const viteEnv = wrapperEnv(env);
 
-  console.log("当前环境变量:",viteEnv)
 
-  // 所有env文件里面的变量
+
   const {VITE_PUBLIC_PATH,VITE_DROP_CONSOLE} = viteEnv
   const isBuild = command === 'build'
 
@@ -43,5 +42,11 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       },
       chunkSizeWarningLimit: 2000,
     },
+    server:{
+      port:3030
+    },
+    preview:{
+      port:8080
+    }
   };
 };
